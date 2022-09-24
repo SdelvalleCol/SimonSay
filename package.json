@@ -1,0 +1,23 @@
+{
+  "name": "simonsay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SdelvalleCol/SimonSay.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SdelvalleCol/SimonSay/issues"
+  },
+  "homepage": "https://github.com/SdelvalleCol/SimonSay#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.1"
+  }
+}

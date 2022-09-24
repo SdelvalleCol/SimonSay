@@ -1,0 +1,5 @@
+Paso a paso 
+1. Instalar Nodejs para NPM
+2. Instalar Typescript
+3. Hábilitar Set-ExecutionPolicy Unrestrict
+4. tsc --init

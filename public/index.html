@@ -43,19 +43,19 @@
                 <div class="contendo_nivel">
                   Es el nivel más sencillo de todos (los tiempos de respuesta son altos) , ideal para jugadores novatos que quieren pasar un rato chill 
                 </div>
-                <button class="btn-level">Facilongo</button>
+                <button class="btn-level" id="btn-facilongo">Facilongo</button>
               </div>
               <div class="col 4 titulo_nivel">Intermedio
                 <div class="contendo_nivel">
                   Nivel estandar para jugadores experimentados los cuales quieren un reto moderado el cual les permita practicar sus hábilidades 
                 </div>
-                <button class="btn-level">Relax</button>
+                <button class="btn-level" id="btn-relax">Relax</button>
               </div>
               <div class="col 4 titulo_nivel">HardCore
                 <div class="contendo_nivel">
                   Nivel "Hell" con tiempos de respuestas casi nulos , ideal para jugadores que quieran romper la pantalla del estres :D
                 </div>
-                <button class="btn-level">Imposible</button>
+                <button class="btn-level" id="btn-imposible">Imposible</button>
               </div>
             </div>
           </div>
@@ -84,6 +84,7 @@
                   <th scope="col">#</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Puntuación</th>
+                  <th scope="col">Tiempo</th>
                 </tr>
               </thead>
               <tbody id="cuerpo_modal_clasi">
@@ -115,21 +116,8 @@
 
     <!-- CONTADOR -->
     <div class="contador">
-      <p class="contador-p">
-        <div class="marco">
-          <div class="tiempo" id="tiempo">00:00:00.000</div>
-          <div class="botones-contenedor">
-            <div class="btn" onclick="iniciar()">
-              <i class="fas fa-play"></i>
-            </div>
-            <div class="btn" onclick="pausar()">
-              <i class="fas fa-pause"></i>
-            </div>
-            <div class="btn" onclick="reiniciar()">
-              <i class="fas fa-undo-alt"></i>
-            </div>
-          </div>
-        </div>
+      <p class="contador-p" id="contador-contenido">
+        
       </p>
     </div>
 
@@ -137,12 +125,12 @@
     <div class="container" style="margin-top: 1.5%">
       <h1 class="text-center">Simon Says</h1>
       <div class="flex-container">
-        <div class="sbtn green">G</div>
-        <div class="sbtn red">R</div>
+        <div class="sbtn green" id="verde">G</div>
+        <div class="sbtn red" id="rojo">R</div>
       </div>
       <div class="flex-container">
-        <div class="sbtn yellow">Y</div>
-        <div class="sbtn blue">B</div>
+        <div class="sbtn yellow" id="amarillo">Y</div>
+        <div class="sbtn blue" id="azul">B</div>
       </div>
 
       <!-- BOTONES -->
@@ -166,7 +154,7 @@
           </button>
         </div>
         <div class="col-4">
-          <button type="button" class="btn-bool">Jugar</button>
+          <button type="button" class="btn-bool" onclick="juego_simon()">Jugar</button>
         </div>
         <div class="col-4">
           <button

@@ -1,31 +1,19 @@
 class personas {
   nombre: string;
-  puntuacion_max: number;
   pt_facil: number;
-  tp_facil: number;
   pt_media: number;
-  tp_media: number;
   pt_dificil: number;
-  tp_dificil: number;
 
   constructor(
     nombre: string,
-    puntuacion_max: number,
     pt_facil: number,
     pt_media: number,
-    pt_dificil: number,
-    tp_facil: number,
-    tp_media: number,
-    tp_dificil: number
+    pt_dificil: number
   ) {
     this.nombre = nombre;
-    this.puntuacion_max = puntuacion_max;
     this.pt_facil = pt_facil;
     this.pt_media = pt_media;
     this.pt_dificil = pt_dificil;
-    this.tp_facil = tp_facil;
-    this.tp_media = tp_media;
-    this.tp_dificil = tp_dificil;
   }
 }
 
@@ -42,12 +30,10 @@ function obtener(nombre: string): any {
 }
 
 //FUNCIONAMIENTO
-var pedro = new personas("pedro", 12, 40, 3, 20, 3, 60, 1);
-var juan = new personas("juan", 10, 20, 3, 30, 4, 32, 2);
-var lucas = new personas("lucas", 4, 10, 1, 20, 3, 30, 20);
+var pedro = new personas("pedro", 12, 40, 20);
+var juan = new personas("juan", 10, 20, 30);
 guardar(pedro);
 guardar(juan);
-guardar(lucas);
 //console.log(JSON.parse(obtener("pedro")).nombre);
 
 //FUNCIONALIDADES
@@ -60,12 +46,12 @@ function sortFunction(a: any, b: any) {
   }
 }
 
-//Clasificación general
+//General
 document.getElementById("clasificacion_btn")?.addEventListener("click", (e) => {
   var plantilla = document.getElementById(
     "cabecera_modal_clasi"
   ) as HTMLDivElement;
-  plantilla.innerHTML = `<h5 class="modal-title" id="exampleModalLabel">Clasificación General</h5>
+  plantilla.innerHTML = `<h5 class="modal-title" id="exampleModalLabel">Clasificación Principiante</h5>
   <button
     type="button"
     class="btn-close"
@@ -81,7 +67,10 @@ document.getElementById("clasificacion_btn")?.addEventListener("click", (e) => {
     var clave = localStorage.key(x);
     if (clave != null) {
       var subdata = [];
-      subdata.push(clave, JSON.parse(obtener(clave)).puntuacion_max);
+      subdata.push(
+        clave,
+        JSON.parse(obtener(clave)).pt_facil
+      );
       data.push(subdata);
     }
   }
@@ -96,7 +85,6 @@ document.getElementById("clasificacion_btn")?.addEventListener("click", (e) => {
 });
 
 //Clasificación Principiante
-
 document.getElementById("btn-clasi-easy")?.addEventListener("click", (e) => {
   var plantilla = document.getElementById(
     "cabecera_modal_clasi"
@@ -119,8 +107,7 @@ document.getElementById("btn-clasi-easy")?.addEventListener("click", (e) => {
       var subdata = [];
       subdata.push(
         clave,
-        JSON.parse(obtener(clave)).pt_facil,
-        JSON.parse(obtener(clave)).tp_facil
+        JSON.parse(obtener(clave)).pt_facil
       );
       data.push(subdata);
     }
@@ -131,13 +118,11 @@ document.getElementById("btn-clasi-easy")?.addEventListener("click", (e) => {
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
   }
 });
 
 //Clasificación Intermedio
-
 document.getElementById("btn-clasi-middle")?.addEventListener("click", (e) => {
   var plantilla = document.getElementById(
     "cabecera_modal_clasi"
@@ -160,8 +145,7 @@ document.getElementById("btn-clasi-middle")?.addEventListener("click", (e) => {
       var subdata = [];
       subdata.push(
         clave,
-        JSON.parse(obtener(clave)).pt_media,
-        JSON.parse(obtener(clave)).tp_media
+        JSON.parse(obtener(clave)).pt_media
       );
       data.push(subdata);
     }
@@ -172,13 +156,11 @@ document.getElementById("btn-clasi-middle")?.addEventListener("click", (e) => {
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
   }
 });
 
 //Clasificación HardCore
-
 document
   .getElementById("btn-clasi-hardcore")
   ?.addEventListener("click", (e) => {
@@ -203,8 +185,7 @@ document
         var subdata = [];
         subdata.push(
           clave,
-          JSON.parse(obtener(clave)).pt_dificil,
-          JSON.parse(obtener(clave)).tp_dificil
+          JSON.parse(obtener(clave)).pt_dificil
         );
         data.push(subdata);
       }
@@ -215,33 +196,79 @@ document
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
     }
   });
 
-//Relog
-var cronometrar = false;
-var acumulado = 0;
+//parametros
+var Puntuación_despliegue = document.getElementById("contador-contenido") as HTMLParagraphElement
+let sound = new Audio("../src/sound/efecto.mp3");
+var contador_juego_simon:number = 0;
+var intensidad:number = 1500;
+var patron:string = "";
+var patron_ingresado:string = ""
+var Puntuación_usuario:number = 0
+Puntuación_despliegue.innerHTML = Puntuación_usuario + ""
 
-function crome(): void {
-  cronometrar = true;
-}
+//botones
+document.getElementById("verde")?.addEventListener("click", (e) => {
+  patron_ingresado = patron_ingresado + "a"
+  var plantilla = document.getElementById("verde") as HTMLDivElement
+  plantilla.style.background = "rgb(0, 255, 0)"
+  setTimeout(function(){
+    plantilla.style.background = "rgb(40, 198, 40)"
+  },500)
+})
 
-var conteo = setInterval(temporizador, 1000);
+document.getElementById("rojo")?.addEventListener("click", (e) => {
+  patron_ingresado = patron_ingresado + "b"
+  var plantilla = document.getElementById("rojo") as HTMLDivElement
+  plantilla.style.background = "rgb(255, 0, 0)"
+  setTimeout(function(){
+    plantilla.style.background = "rgb(188, 31, 31)"
+  },500)
+})
 
-function temporizador(): void {
-  if (cronometrar) {
-    var plantilla = document.getElementById(
-      "contador-contenido"
-    ) as HTMLParagraphElement;
-    plantilla.innerHTML = acumulado + "";
-    acumulado++;
-    if (acumulado > 10) {
-      clearInterval(conteo);
-    }
+document.getElementById("amarillo")?.addEventListener("click", (e) => {
+  patron_ingresado = patron_ingresado + "c"
+  var plantilla = document.getElementById("amarillo") as HTMLDivElement
+  plantilla.style.background = "rgb(255, 255, 0)"
+  setTimeout(function(){
+    plantilla.style.background = "rgb(190, 190, 33)"
+  },500)
+})
+
+document.getElementById("azul")?.addEventListener("click", (e) => {
+  patron_ingresado = patron_ingresado + "d"
+  var plantilla = document.getElementById("azul") as HTMLDivElement
+  plantilla.style.background = "rgb(0, 0, 255)"
+  setTimeout(function(){
+    plantilla.style.background = "rgb(37, 37, 214)"
+  },500)
+})
+
+
+//Puntuación
+document.getElementById("verificar_btn")?.addEventListener("click", (e) => {
+  if (patron_ingresado != patron) {
+    alert("perdiste")
+    var bnt_ocultar = document.getElementById("btn_principal") as HTMLButtonElement
+    bnt_ocultar.style.display = "block"
+    var bnt_ocultar = document.getElementById("verificar_btn") as HTMLButtonElement
+    bnt_ocultar.style.display = "none"
+  } else if (patron == patron_ingresado) {
+    alert("ganaste")
+    Puntuación_usuario++
+    Puntuación_despliegue.innerHTML = Puntuación_usuario +""
+    juego_simon()
+      
   }
-}
+  console.log(patron)
+  console.log(patron_ingresado)
+  patron = ""
+  patron_ingresado = ""
+})
+
 
 //Niveles
 document.getElementById("btn-facilongo")?.addEventListener("click", (e) => {
@@ -275,11 +302,6 @@ document.getElementById("btn-imposible")?.addEventListener("click", (e) => {
 });
 
 //Juego
-let sound = new Audio("../src/sound/efecto.mp3");
-var contador_juego_simon = 0;
-var intensidad = 1500;
-var patron = "";
-
 function juego_simon() {
   var juego_ciclos = setInterval(function Iluminar() {
     var e = Math.floor(Math.random() * 4) + 1;
@@ -293,15 +315,18 @@ function juego_simon() {
     plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
     var plantilla_azul = document.getElementById("azul") as HTMLDivElement;
     plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
-    if (contador_juego_simon >= 3) {
+    if (contador_juego_simon >= Puntuación_usuario+1) {
       clearInterval(juego_ciclos);
-      console.log(patron);
       plantilla_verde.style.backgroundColor = "rgb(40, 198, 40)";
       plantilla_rojo.style.backgroundColor = "rgb(188, 31, 31)";
       plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
       plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
       contador_juego_simon = 0;
-      patron = "";
+      var bnt_ocultar = document.getElementById("btn_principal") as HTMLButtonElement
+      bnt_ocultar.style.display = "none"
+      var bnt_ocultar = document.getElementById("verificar_btn") as HTMLButtonElement
+      bnt_ocultar.style.display = "block"
+
     } else {
       if (e == 1) {
         plantilla_verde.style.backgroundColor = "rgb(0, 255, 0)";

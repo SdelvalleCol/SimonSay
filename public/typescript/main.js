@@ -1,15 +1,11 @@
 "use strict";
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 class personas {
-    constructor(nombre, puntuacion_max, pt_facil, pt_media, pt_dificil, tp_facil, tp_media, tp_dificil) {
+    constructor(nombre, pt_facil, pt_media, pt_dificil) {
         this.nombre = nombre;
-        this.puntuacion_max = puntuacion_max;
         this.pt_facil = pt_facil;
         this.pt_media = pt_media;
         this.pt_dificil = pt_dificil;
-        this.tp_facil = tp_facil;
-        this.tp_media = tp_media;
-        this.tp_dificil = tp_dificil;
     }
 }
 //LOCALSTORE
@@ -23,12 +19,10 @@ function obtener(nombre) {
     }
 }
 //FUNCIONAMIENTO
-var pedro = new personas("pedro", 12, 40, 3, 20, 3, 60, 1);
-var juan = new personas("juan", 10, 20, 3, 30, 4, 32, 2);
-var lucas = new personas("lucas", 4, 10, 1, 20, 3, 30, 20);
+var pedro = new personas("pedro", 12, 40, 20);
+var juan = new personas("juan", 10, 20, 30);
 guardar(pedro);
 guardar(juan);
-guardar(lucas);
 //console.log(JSON.parse(obtener("pedro")).nombre);
 //FUNCIONALIDADES
 function sortFunction(a, b) {
@@ -39,10 +33,10 @@ function sortFunction(a, b) {
         return a[1] > b[1] ? -1 : 1;
     }
 }
-//Clasificación general
+//General
 (_a = document.getElementById("clasificacion_btn")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (e) => {
     var plantilla = document.getElementById("cabecera_modal_clasi");
-    plantilla.innerHTML = `<h5 class="modal-title" id="exampleModalLabel">Clasificación General</h5>
+    plantilla.innerHTML = `<h5 class="modal-title" id="exampleModalLabel">Clasificación Principiante</h5>
   <button
     type="button"
     class="btn-close"
@@ -56,7 +50,7 @@ function sortFunction(a, b) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
-            subdata.push(clave, JSON.parse(obtener(clave)).puntuacion_max);
+            subdata.push(clave, JSON.parse(obtener(clave)).pt_facil);
             data.push(subdata);
         }
     }
@@ -86,7 +80,7 @@ function sortFunction(a, b) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
-            subdata.push(clave, JSON.parse(obtener(clave)).pt_facil, JSON.parse(obtener(clave)).tp_facil);
+            subdata.push(clave, JSON.parse(obtener(clave)).pt_facil);
             data.push(subdata);
         }
     }
@@ -96,7 +90,6 @@ function sortFunction(a, b) {
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
     }
 });
@@ -117,7 +110,7 @@ function sortFunction(a, b) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
-            subdata.push(clave, JSON.parse(obtener(clave)).pt_media, JSON.parse(obtener(clave)).tp_media);
+            subdata.push(clave, JSON.parse(obtener(clave)).pt_media);
             data.push(subdata);
         }
     }
@@ -127,7 +120,6 @@ function sortFunction(a, b) {
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
     }
 });
@@ -149,7 +141,7 @@ function sortFunction(a, b) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
-            subdata.push(clave, JSON.parse(obtener(clave)).pt_dificil, JSON.parse(obtener(clave)).tp_dificil);
+            subdata.push(clave, JSON.parse(obtener(clave)).pt_dificil);
             data.push(subdata);
         }
     }
@@ -159,29 +151,73 @@ function sortFunction(a, b) {
     <th scope="row">${q + 1}</th>
     <td>${data[q][0]}</td>
     <td>${data[q][1]}</td>
-    <td>${data[q][2]}</td>
   </tr>`;
     }
 });
-//Relog
-var cronometrar = false;
-var acumulado = 0;
-function crome() {
-    cronometrar = true;
-}
-var conteo = setInterval(temporizador, 1000);
-function temporizador() {
-    if (cronometrar) {
-        var plantilla = document.getElementById("contador-contenido");
-        plantilla.innerHTML = acumulado + "";
-        acumulado++;
-        if (acumulado > 10) {
-            clearInterval(conteo);
-        }
+//parametros
+var Puntuación_despliegue = document.getElementById("contador-contenido");
+let sound = new Audio("../src/sound/efecto.mp3");
+var contador_juego_simon = 0;
+var intensidad = 1500;
+var patron = "";
+var patron_ingresado = "";
+var Puntuación_usuario = 0;
+Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
+//botones
+(_e = document.getElementById("verde")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", (e) => {
+    patron_ingresado = patron_ingresado + "a";
+    var plantilla = document.getElementById("verde");
+    plantilla.style.background = "rgb(0, 255, 0)";
+    setTimeout(function () {
+        plantilla.style.background = "rgb(40, 198, 40)";
+    }, 500);
+});
+(_f = document.getElementById("rojo")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", (e) => {
+    patron_ingresado = patron_ingresado + "b";
+    var plantilla = document.getElementById("rojo");
+    plantilla.style.background = "rgb(255, 0, 0)";
+    setTimeout(function () {
+        plantilla.style.background = "rgb(188, 31, 31)";
+    }, 500);
+});
+(_g = document.getElementById("amarillo")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", (e) => {
+    patron_ingresado = patron_ingresado + "c";
+    var plantilla = document.getElementById("amarillo");
+    plantilla.style.background = "rgb(255, 255, 0)";
+    setTimeout(function () {
+        plantilla.style.background = "rgb(190, 190, 33)";
+    }, 500);
+});
+(_h = document.getElementById("azul")) === null || _h === void 0 ? void 0 : _h.addEventListener("click", (e) => {
+    patron_ingresado = patron_ingresado + "d";
+    var plantilla = document.getElementById("azul");
+    plantilla.style.background = "rgb(0, 0, 255)";
+    setTimeout(function () {
+        plantilla.style.background = "rgb(37, 37, 214)";
+    }, 500);
+});
+//Puntuación
+(_j = document.getElementById("verificar_btn")) === null || _j === void 0 ? void 0 : _j.addEventListener("click", (e) => {
+    if (patron_ingresado != patron) {
+        alert("perdiste");
+        var bnt_ocultar = document.getElementById("btn_principal");
+        bnt_ocultar.style.display = "block";
+        var bnt_ocultar = document.getElementById("verificar_btn");
+        bnt_ocultar.style.display = "none";
     }
-}
+    else if (patron == patron_ingresado) {
+        alert("ganaste");
+        Puntuación_usuario++;
+        Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
+        juego_simon();
+    }
+    console.log(patron);
+    console.log(patron_ingresado);
+    patron = "";
+    patron_ingresado = "";
+});
 //Niveles
-(_e = document.getElementById("btn-facilongo")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", (e) => {
+(_k = document.getElementById("btn-facilongo")) === null || _k === void 0 ? void 0 : _k.addEventListener("click", (e) => {
     intensidad = 1500;
     var anuncio = document.getElementById("lvl_easy_div");
     var anuncio_2 = document.getElementById("lvl_div_mid");
@@ -190,7 +226,7 @@ function temporizador() {
     anuncio_2.style.display = "none";
     anuncio_3.style.display = "none";
 });
-(_f = document.getElementById("btn-relax")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", (e) => {
+(_l = document.getElementById("btn-relax")) === null || _l === void 0 ? void 0 : _l.addEventListener("click", (e) => {
     intensidad = 1000;
     var anuncio = document.getElementById("lvl_easy_div");
     var anuncio_2 = document.getElementById("lvl_div_mid");
@@ -199,7 +235,7 @@ function temporizador() {
     anuncio_2.style.display = "block";
     anuncio_3.style.display = "none";
 });
-(_g = document.getElementById("btn-imposible")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", (e) => {
+(_m = document.getElementById("btn-imposible")) === null || _m === void 0 ? void 0 : _m.addEventListener("click", (e) => {
     intensidad = 500;
     var anuncio = document.getElementById("lvl_easy_div");
     var anuncio_2 = document.getElementById("lvl_div_mid");
@@ -209,10 +245,6 @@ function temporizador() {
     anuncio_3.style.display = "block";
 });
 //Juego
-let sound = new Audio("../src/sound/efecto.mp3");
-var contador_juego_simon = 0;
-var intensidad = 1500;
-var patron = "";
 function juego_simon() {
     var juego_ciclos = setInterval(function Iluminar() {
         var e = Math.floor(Math.random() * 4) + 1;
@@ -224,15 +256,17 @@ function juego_simon() {
         plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
         var plantilla_azul = document.getElementById("azul");
         plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
-        if (contador_juego_simon >= 3) {
+        if (contador_juego_simon >= Puntuación_usuario + 1) {
             clearInterval(juego_ciclos);
-            console.log(patron);
             plantilla_verde.style.backgroundColor = "rgb(40, 198, 40)";
             plantilla_rojo.style.backgroundColor = "rgb(188, 31, 31)";
             plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
             plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
             contador_juego_simon = 0;
-            patron = "";
+            var bnt_ocultar = document.getElementById("btn_principal");
+            bnt_ocultar.style.display = "none";
+            var bnt_ocultar = document.getElementById("verificar_btn");
+            bnt_ocultar.style.display = "block";
         }
         else {
             if (e == 1) {

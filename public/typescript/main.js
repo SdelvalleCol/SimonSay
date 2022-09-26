@@ -180,25 +180,42 @@ function temporizador() {
         }
     }
 }
-//Juego
-var contador_juego_simon = 0;
-var intensidad = 1000;
+//Niveles
 (_e = document.getElementById("btn-facilongo")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", (e) => {
-    intensidad = 1000;
-    alert("a");
+    intensidad = 1500;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "block";
+    anuncio_2.style.display = "none";
+    anuncio_3.style.display = "none";
 });
 (_f = document.getElementById("btn-relax")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", (e) => {
-    intensidad = 500;
-    alert("b");
+    intensidad = 1000;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "none";
+    anuncio_2.style.display = "block";
+    anuncio_3.style.display = "none";
 });
 (_g = document.getElementById("btn-imposible")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", (e) => {
-    intensidad = 250;
-    alert("c");
+    intensidad = 500;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "none";
+    anuncio_2.style.display = "none";
+    anuncio_3.style.display = "block";
 });
+//Juego
+let sound = new Audio("../src/sound/efecto.mp3");
+var contador_juego_simon = 0;
+var intensidad = 1500;
+var patron = "";
 function juego_simon() {
     var juego_ciclos = setInterval(function Iluminar() {
         var e = Math.floor(Math.random() * 4) + 1;
-        console.log(e);
         var plantilla_verde = document.getElementById("verde");
         plantilla_verde.style.backgroundColor = "rgb(40, 198, 40)";
         var plantilla_rojo = document.getElementById("rojo");
@@ -207,30 +224,41 @@ function juego_simon() {
         plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
         var plantilla_azul = document.getElementById("azul");
         plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
-        if (e == 1) {
-            plantilla_verde.style.backgroundColor = "rgb(0, 255, 0)";
-        }
-        else if (e == 2) {
-            plantilla_rojo.style.backgroundColor = "rgb(255, 0, 0)";
-        }
-        else if (e == 3) {
-            plantilla_amarillo.style.backgroundColor = "rgb(255, 255, 0)";
-        }
-        else if (e == 4) {
-            plantilla_azul.style.backgroundColor = "rgb(0, 0, 255)";
-        }
-        else {
+        if (contador_juego_simon >= 3) {
             clearInterval(juego_ciclos);
-            alert("Alerta de desarrollo");
-        }
-        contador_juego_simon++;
-        if (contador_juego_simon > 4) {
-            clearInterval(juego_ciclos);
+            console.log(patron);
             plantilla_verde.style.backgroundColor = "rgb(40, 198, 40)";
             plantilla_rojo.style.backgroundColor = "rgb(188, 31, 31)";
             plantilla_amarillo.style.backgroundColor = "rgb(190, 190, 33)";
             plantilla_azul.style.backgroundColor = "rgb(37, 37, 214)";
             contador_juego_simon = 0;
+            patron = "";
+        }
+        else {
+            if (e == 1) {
+                plantilla_verde.style.backgroundColor = "rgb(0, 255, 0)";
+                sound.play();
+                patron = patron + "a";
+            }
+            else if (e == 2) {
+                plantilla_rojo.style.backgroundColor = "rgb(255, 0, 0)";
+                sound.play();
+                patron = patron + "b";
+            }
+            else if (e == 3) {
+                plantilla_amarillo.style.backgroundColor = "rgb(255, 255, 0)";
+                sound.play();
+                patron = patron + "c";
+            }
+            else if (e == 4) {
+                plantilla_azul.style.backgroundColor = "rgb(0, 0, 255)";
+                sound.play();
+                patron = patron + "d";
+            }
+            else {
+                clearInterval(juego_ciclos);
+            }
+            contador_juego_simon++;
         }
     }, intensidad);
 }

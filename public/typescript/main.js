@@ -1,5 +1,5 @@
 "use strict";
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 class personas {
     constructor(nombre, pt_facil, pt_media, pt_dificil) {
         this.nombre = nombre;
@@ -14,15 +14,13 @@ function guardar(persona) {
 }
 function obtener(nombre) {
     if (localStorage.getItem(nombre)) {
-        var p = localStorage.getItem(nombre);
+        var p = (localStorage.getItem(nombre));
         return p;
     }
 }
 //FUNCIONAMIENTO
-var pedro = new personas("pedro", 12, 40, 20);
-var juan = new personas("juan", 10, 20, 30);
-guardar(pedro);
-guardar(juan);
+//var pedro = new personas("pedro", 12, 40, 20);
+//guardar(pedro);
 //console.log(JSON.parse(obtener("pedro")).nombre);
 //FUNCIONALIDADES
 function sortFunction(a, b) {
@@ -158,11 +156,12 @@ function sortFunction(a, b) {
 var Puntuación_despliegue = document.getElementById("contador-contenido");
 let sound = new Audio("../src/sound/efecto.mp3");
 var contador_juego_simon = 0;
-var intensidad = 1500;
+var intensidad = 1200;
 var patron = "";
 var patron_ingresado = "";
 var Puntuación_usuario = 0;
 Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
+var dificultad = "facil";
 //botones
 (_e = document.getElementById("verde")) === null || _e === void 0 ? void 0 : _e.addEventListener("click", (e) => {
     patron_ingresado = patron_ingresado + "a";
@@ -171,6 +170,7 @@ Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
     setTimeout(function () {
         plantilla.style.background = "rgb(40, 198, 40)";
     }, 500);
+    sound.play();
 });
 (_f = document.getElementById("rojo")) === null || _f === void 0 ? void 0 : _f.addEventListener("click", (e) => {
     patron_ingresado = patron_ingresado + "b";
@@ -179,6 +179,7 @@ Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
     setTimeout(function () {
         plantilla.style.background = "rgb(188, 31, 31)";
     }, 500);
+    sound.play();
 });
 (_g = document.getElementById("amarillo")) === null || _g === void 0 ? void 0 : _g.addEventListener("click", (e) => {
     patron_ingresado = patron_ingresado + "c";
@@ -187,6 +188,7 @@ Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
     setTimeout(function () {
         plantilla.style.background = "rgb(190, 190, 33)";
     }, 500);
+    sound.play();
 });
 (_h = document.getElementById("azul")) === null || _h === void 0 ? void 0 : _h.addEventListener("click", (e) => {
     patron_ingresado = patron_ingresado + "d";
@@ -195,18 +197,77 @@ Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
     setTimeout(function () {
         plantilla.style.background = "rgb(37, 37, 214)";
     }, 500);
+    sound.play();
+});
+//Niveles
+(_j = document.getElementById("btn-facilongo")) === null || _j === void 0 ? void 0 : _j.addEventListener("click", (e) => {
+    intensidad = 1200;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "block";
+    anuncio_2.style.display = "none";
+    anuncio_3.style.display = "none";
+    Puntuación_despliegue.innerHTML = 0 + "";
+    patron = "";
+    patron_ingresado = "";
+    Puntuación_usuario = 0;
+    var bnt_ocultar = document.getElementById("btn_principal");
+    bnt_ocultar.style.display = "block";
+    var bnt_ocultar = document.getElementById("verificar_btn");
+    bnt_ocultar.style.display = "none";
+    dificultad = "facil";
+});
+(_k = document.getElementById("btn-relax")) === null || _k === void 0 ? void 0 : _k.addEventListener("click", (e) => {
+    intensidad = 800;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "none";
+    anuncio_2.style.display = "block";
+    anuncio_3.style.display = "none";
+    Puntuación_despliegue.innerHTML = 0 + "";
+    patron = "";
+    patron_ingresado = "";
+    Puntuación_usuario = 0;
+    var bnt_ocultar = document.getElementById("btn_principal");
+    bnt_ocultar.style.display = "block";
+    var bnt_ocultar = document.getElementById("verificar_btn");
+    bnt_ocultar.style.display = "none";
+    dificultad = "mid";
+});
+(_l = document.getElementById("btn-imposible")) === null || _l === void 0 ? void 0 : _l.addEventListener("click", (e) => {
+    intensidad = 500;
+    var anuncio = document.getElementById("lvl_easy_div");
+    var anuncio_2 = document.getElementById("lvl_div_mid");
+    var anuncio_3 = document.getElementById("lvl_div_hard");
+    anuncio.style.display = "none";
+    anuncio_2.style.display = "none";
+    anuncio_3.style.display = "block";
+    Puntuación_despliegue.innerHTML = 0 + "";
+    patron = "";
+    patron_ingresado = "";
+    Puntuación_usuario = 0;
+    var bnt_ocultar = document.getElementById("btn_principal");
+    bnt_ocultar.style.display = "block";
+    var bnt_ocultar = document.getElementById("verificar_btn");
+    bnt_ocultar.style.display = "none";
+    dificultad = "hard";
 });
 //Puntuación
-(_j = document.getElementById("verificar_btn")) === null || _j === void 0 ? void 0 : _j.addEventListener("click", (e) => {
+(_m = document.getElementById("verificar_btn")) === null || _m === void 0 ? void 0 : _m.addEventListener("click", (e) => {
     if (patron_ingresado != patron) {
-        alert("perdiste");
+        var p = document.getElementById("contenedor_dificultad");
+        p.innerHTML = dificultad;
+        var q = document.getElementById('id01');
+        q.style.display = "block";
         var bnt_ocultar = document.getElementById("btn_principal");
         bnt_ocultar.style.display = "block";
         var bnt_ocultar = document.getElementById("verificar_btn");
         bnt_ocultar.style.display = "none";
+        Puntuación_despliegue.innerHTML = 0 + "";
     }
     else if (patron == patron_ingresado) {
-        alert("ganaste");
         Puntuación_usuario++;
         Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
         juego_simon();
@@ -216,36 +277,9 @@ Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
     patron = "";
     patron_ingresado = "";
 });
-//Niveles
-(_k = document.getElementById("btn-facilongo")) === null || _k === void 0 ? void 0 : _k.addEventListener("click", (e) => {
-    intensidad = 1500;
-    var anuncio = document.getElementById("lvl_easy_div");
-    var anuncio_2 = document.getElementById("lvl_div_mid");
-    var anuncio_3 = document.getElementById("lvl_div_hard");
-    anuncio.style.display = "block";
-    anuncio_2.style.display = "none";
-    anuncio_3.style.display = "none";
-});
-(_l = document.getElementById("btn-relax")) === null || _l === void 0 ? void 0 : _l.addEventListener("click", (e) => {
-    intensidad = 1000;
-    var anuncio = document.getElementById("lvl_easy_div");
-    var anuncio_2 = document.getElementById("lvl_div_mid");
-    var anuncio_3 = document.getElementById("lvl_div_hard");
-    anuncio.style.display = "none";
-    anuncio_2.style.display = "block";
-    anuncio_3.style.display = "none";
-});
-(_m = document.getElementById("btn-imposible")) === null || _m === void 0 ? void 0 : _m.addEventListener("click", (e) => {
-    intensidad = 500;
-    var anuncio = document.getElementById("lvl_easy_div");
-    var anuncio_2 = document.getElementById("lvl_div_mid");
-    var anuncio_3 = document.getElementById("lvl_div_hard");
-    anuncio.style.display = "none";
-    anuncio_2.style.display = "none";
-    anuncio_3.style.display = "block";
-});
 //Juego
 function juego_simon() {
+    patron_ingresado = "";
     var juego_ciclos = setInterval(function Iluminar() {
         var e = Math.floor(Math.random() * 4) + 1;
         var plantilla_verde = document.getElementById("verde");
@@ -295,4 +329,55 @@ function juego_simon() {
             contador_juego_simon++;
         }
     }, intensidad);
+}
+//Ingreso
+(_o = document.getElementById("registrarse")) === null || _o === void 0 ? void 0 : _o.addEventListener("click", (e) => {
+    var nombre = document.getElementById("nombre");
+    if (nombre.value != "") {
+        verificar_data(nombre.value, dificultad);
+    }
+});
+//Verificacion
+function verificar_data(nombre, dificultad_var) {
+    var _a;
+    var q = document.getElementById('id01');
+    q.style.display = "none";
+    var confirmar = false;
+    for (var i = 0; i < localStorage.length; i++) {
+        let clave = (_a = localStorage.key(i)) === null || _a === void 0 ? void 0 : _a.toLocaleLowerCase();
+        if (clave == nombre.toLocaleLowerCase()) {
+            confirmar = true;
+            let data = JSON.parse(obtener(clave));
+            localStorage.removeItem(clave);
+            var personasx;
+            if (dificultad_var == "facil") {
+                personasx = new personas(nombre, Puntuación_usuario, data.pt_media, data.pt_dificil);
+                guardar(personasx);
+            }
+            else if (dificultad_var == "mid") {
+                personasx = new personas(nombre, data.pt_facil, Puntuación_usuario, data.pt_dificil);
+                guardar(personasx);
+            }
+            else {
+                personasx = new personas(nombre, data.pt_facil, data.pt_media, Puntuación_usuario);
+                guardar(personasx);
+            }
+            break;
+        }
+    }
+    if (confirmar == false) {
+        if (dificultad_var == "facil") {
+            personasx = new personas(nombre, Puntuación_usuario, 0, 0);
+            guardar(personasx);
+        }
+        else if (dificultad_var == "mid") {
+            personasx = new personas(nombre, 0, Puntuación_usuario, 0);
+            guardar(personasx);
+        }
+        else {
+            personasx = new personas(nombre, 0, 0, Puntuación_usuario);
+            guardar(personasx);
+        }
+    }
+    Puntuación_usuario = 0;
 }

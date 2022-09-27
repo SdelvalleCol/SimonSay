@@ -30,8 +30,8 @@ function obtener(nombre: string): any {
 }
 
 //FUNCIONAMIENTO
-//var pedro = new personas("pedro", 12, 40, 20);
-//guardar(pedro);
+var pedro = new personas("pedro", 3, 2, 1);
+guardar(pedro);
 //console.log(JSON.parse(obtener("pedro")).nombre);
 
 //FUNCIONALIDADES
@@ -61,7 +61,13 @@ document.getElementById("clasificacion_btn")?.addEventListener("click", (e) => {
   ) as HTMLTableCaptionElement;
   plantilla_cuerpo.innerHTML = "";
   var data = [];
-  for (var x = 0; x <= localStorage.length - 1; x++) {
+  var ciclos
+    if(localStorage.length > 10){
+      ciclos = 10
+    }else{
+      ciclos = localStorage.length
+    }
+  for (var x = 0; x <= ciclos - 1; x++) {
     var clave = localStorage.key(x);
     if (clave != null) {
       var subdata = [];
@@ -99,7 +105,13 @@ document.getElementById("btn-clasi-easy")?.addEventListener("click", (e) => {
   ) as HTMLTableCaptionElement;
   plantilla_cuerpo.innerHTML = "";
   var data = [];
-  for (var x = 0; x <= localStorage.length - 1; x++) {
+  var ciclos
+    if(localStorage.length > 10){
+      ciclos = 10
+    }else{
+      ciclos = localStorage.length
+    }
+  for (var x = 0; x <= ciclos - 1; x++) {
     var clave = localStorage.key(x);
     if (clave != null) {
       var subdata = [];
@@ -137,7 +149,13 @@ document.getElementById("btn-clasi-middle")?.addEventListener("click", (e) => {
   ) as HTMLTableCaptionElement;
   plantilla_cuerpo.innerHTML = "";
   var data = [];
-  for (var x = 0; x <= localStorage.length - 1; x++) {
+  var ciclos
+    if(localStorage.length > 10){
+      ciclos = 10
+    }else{
+      ciclos = localStorage.length
+    }
+  for (var x = 0; x <= ciclos - 1; x++) {
     var clave = localStorage.key(x);
     if (clave != null) {
       var subdata = [];
@@ -177,7 +195,13 @@ document
     ) as HTMLTableCaptionElement;
     plantilla_cuerpo.innerHTML = "";
     var data = [];
-    for (var x = 0; x <= localStorage.length - 1; x++) {
+    var ciclos
+    if(localStorage.length > 10){
+      ciclos = 10
+    }else{
+      ciclos = localStorage.length
+    }
+    for (var x = 0; x <= ciclos- 1; x++) {
       var clave = localStorage.key(x);
       if (clave != null) {
         var subdata = [];
@@ -326,8 +350,6 @@ document.getElementById("verificar_btn")?.addEventListener("click", (e) => {
     juego_simon()
 
   }
-  console.log(patron)
-  console.log(patron_ingresado)
   patron = ""
   patron_ingresado = ""
 })
@@ -398,11 +420,10 @@ function verificar_data(nombre:string,dificultad_var:string){
   q.style.display = "none"
   var confirmar = false
   for(var i = 0 ; i < localStorage.length ; i++){
-    let clave = localStorage.key(i)?.toLocaleLowerCase();
-    if(clave == nombre.toLocaleLowerCase()){
+    let clave = localStorage.key(i);
+    if(clave== nombre){
       confirmar = true
       let data = JSON.parse(obtener(clave))
-      localStorage.removeItem(clave)
       var personasx
       if(dificultad_var == "facil"){
         personasx = new personas(nombre,Puntuación_usuario,data.pt_media,data.pt_dificil)

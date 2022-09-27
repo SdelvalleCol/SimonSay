@@ -19,8 +19,8 @@ function obtener(nombre) {
     }
 }
 //FUNCIONAMIENTO
-//var pedro = new personas("pedro", 12, 40, 20);
-//guardar(pedro);
+var pedro = new personas("pedro", 3, 2, 1);
+guardar(pedro);
 //console.log(JSON.parse(obtener("pedro")).nombre);
 //FUNCIONALIDADES
 function sortFunction(a, b) {
@@ -44,7 +44,14 @@ function sortFunction(a, b) {
     var plantilla_cuerpo = document.getElementById("cuerpo_modal_clasi");
     plantilla_cuerpo.innerHTML = "";
     var data = [];
-    for (var x = 0; x <= localStorage.length - 1; x++) {
+    var ciclos;
+    if (localStorage.length > 10) {
+        ciclos = 10;
+    }
+    else {
+        ciclos = localStorage.length;
+    }
+    for (var x = 0; x <= ciclos - 1; x++) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
@@ -74,7 +81,14 @@ function sortFunction(a, b) {
     var plantilla_cuerpo = document.getElementById("cuerpo_modal_clasi");
     plantilla_cuerpo.innerHTML = "";
     var data = [];
-    for (var x = 0; x <= localStorage.length - 1; x++) {
+    var ciclos;
+    if (localStorage.length > 10) {
+        ciclos = 10;
+    }
+    else {
+        ciclos = localStorage.length;
+    }
+    for (var x = 0; x <= ciclos - 1; x++) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
@@ -104,7 +118,14 @@ function sortFunction(a, b) {
     var plantilla_cuerpo = document.getElementById("cuerpo_modal_clasi");
     plantilla_cuerpo.innerHTML = "";
     var data = [];
-    for (var x = 0; x <= localStorage.length - 1; x++) {
+    var ciclos;
+    if (localStorage.length > 10) {
+        ciclos = 10;
+    }
+    else {
+        ciclos = localStorage.length;
+    }
+    for (var x = 0; x <= ciclos - 1; x++) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
@@ -135,7 +156,14 @@ function sortFunction(a, b) {
     var plantilla_cuerpo = document.getElementById("cuerpo_modal_clasi");
     plantilla_cuerpo.innerHTML = "";
     var data = [];
-    for (var x = 0; x <= localStorage.length - 1; x++) {
+    var ciclos;
+    if (localStorage.length > 10) {
+        ciclos = 10;
+    }
+    else {
+        ciclos = localStorage.length;
+    }
+    for (var x = 0; x <= ciclos - 1; x++) {
         var clave = localStorage.key(x);
         if (clave != null) {
             var subdata = [];
@@ -272,8 +300,6 @@ var dificultad = "facil";
         Puntuación_despliegue.innerHTML = Puntuación_usuario + "";
         juego_simon();
     }
-    console.log(patron);
-    console.log(patron_ingresado);
     patron = "";
     patron_ingresado = "";
 });
@@ -339,16 +365,14 @@ function juego_simon() {
 });
 //Verificacion
 function verificar_data(nombre, dificultad_var) {
-    var _a;
     var q = document.getElementById('id01');
     q.style.display = "none";
     var confirmar = false;
     for (var i = 0; i < localStorage.length; i++) {
-        let clave = (_a = localStorage.key(i)) === null || _a === void 0 ? void 0 : _a.toLocaleLowerCase();
-        if (clave == nombre.toLocaleLowerCase()) {
+        let clave = localStorage.key(i);
+        if (clave == nombre) {
             confirmar = true;
             let data = JSON.parse(obtener(clave));
-            localStorage.removeItem(clave);
             var personasx;
             if (dificultad_var == "facil") {
                 personasx = new personas(nombre, Puntuación_usuario, data.pt_media, data.pt_dificil);

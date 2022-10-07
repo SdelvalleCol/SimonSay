@@ -224,7 +224,7 @@ document
 
 //parametros
 var Puntuación_despliegue = document.getElementById("contador-contenido") as HTMLParagraphElement
-let sound = new Audio("../src/sound/efecto.mp3");
+let sound = new Audio("/sound/efecto.mp3");
 var contador_juego_simon: number = 0;
 var intensidad: number = 1200;
 var patron: string = "";

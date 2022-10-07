@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data_SimonSay</title>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="icon" href="/img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+</head>
+<body style="background-color: black;">
+    <div>
+        <div class="data">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Puntuación</th>
+                    </tr>
+                </thead>
+            </table>
+            <div id="cuerpo_modal_clasi" class="cuerpo_clasi_sec2">
+
+            </div>
+
+
+            <div class="row">
+                <div class="col 4">
+                    <button class="btn-clasi" id="btn-clasi-easy" onclick="facil()">
+          Puntuación Principiante
+        </button>
+                </div>
+                <div class="col 4">
+                    <button class="btn-clasi" id="btn-clasi-middle" onclick="intermedio()">
+          Puntuación Intermedio
+        </button>
+                </div>
+                <div class="col 4">
+                    <button class="btn-clasi" id="btn-clasi-hardcore" onclick="dificil()">
+          Puntuación HardCore
+        </button>
+                </div>
+        </div>
+    </div>
+    <script src="/typescript/data.js"></script>
+</body>
+</html>

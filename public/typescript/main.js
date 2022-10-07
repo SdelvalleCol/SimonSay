@@ -182,7 +182,7 @@ function sortFunction(a, b) {
 });
 //parametros
 var Puntuación_despliegue = document.getElementById("contador-contenido");
-let sound = new Audio("../src/sound/efecto.mp3");
+let sound = new Audio("/sound/efecto.mp3");
 var contador_juego_simon = 0;
 var intensidad = 1200;
 var patron = "";

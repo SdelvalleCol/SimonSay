@@ -202,3 +202,22 @@
     color: white;
     font-size: xx-large;
 }
+
+.data{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    padding: 1.5%;
+    width: 50%;
+    background-color: white;
+    height: max-content;
+    border-radius: 20px; 
+    text-align: center;
+}
+
+.cuerpo_clasi_sec2{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display:block;
+    height: 10vh;
+}

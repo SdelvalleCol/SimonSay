@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/SdelvalleCol/SimonSay#readme",
   "dependencies": {
-    "bootstrap": "^5.2.1"
+    "bootstrap": "^5.2.1",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.3",
+    "nodemon": "^2.0.20"
   }
 }
